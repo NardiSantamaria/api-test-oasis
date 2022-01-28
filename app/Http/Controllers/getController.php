@@ -26,9 +26,17 @@ class getController extends Controller
         //dd($horarios);
         $bares= CentrosConsumo::join('centros_consumo_detalles', 'centros_consumo.id', '=', 'centros_consumo_detalles.centro_consumo_id')->where('centros_consumo_detalles.hotel_id', '1')->where('categoria_id', '3')->get();
         $restaurants = CentrosConsumo::join('centros_consumo_detalles', 'centros_consumo.id', '=', 'centros_consumo_detalles.centro_consumo_id')->where('centros_consumo_detalles.hotel_id', '1')->where('categoria_id', '2')->get();
-    
+        
         //dd($categorias, $centros_consumo, $centros_consumo_detalles, $horarios);
         return response()->json(['categorias' => $categorias, 'detalles' => $centros_consumo_detalles, 'horarios' => $horarios, 'bares'=> $bares, 'restaurantes'=>$restaurants]);
+    }
+    public function gethorario($id_centro_consumo)
+    {
+        $horarios = Horarios::join('centros_consumo_detalles', 'centros_consumo_horarios.centro_consumo_id', '=', 'centros_consumo_detalles.centro_consumo_id')
+        ->where('centros_consumo_detalles.hotel_id', '1')->get();
+        $centro_consumo = CentrosConsumo::where('id', $id_centro_consumo)->first();
+        //dd($centro_consumo);
+        return response()->json(['horarios' => $horarios, 'centrosConsumo'=>$centro_consumo]);
     }
     
     /**
