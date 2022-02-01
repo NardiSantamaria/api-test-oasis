@@ -20,4 +20,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group(array('namespace' => 'Api'), function () {
     Route::get('/getData', [App\Http\Controllers\getController::class, 'Index']);
     Route::get('/getSchedule/{id}', [App\Http\Controllers\getController::class, 'gethorario']);
+
 });
